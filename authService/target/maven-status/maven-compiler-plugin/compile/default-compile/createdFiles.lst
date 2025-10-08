@@ -1,0 +1,9 @@
+com\stockflow\model\User.class
+com\stockflow\repository\UserRepository.class
+com\stockflow\AuthServiceApplication.class
+com\stockflow\service\UserServiceImpl.class
+com\stockflow\controller\WebController.class
+com\stockflow\security\SecurityConfig.class
+com\stockflow\service\UserService.class
+com\stockflow\controller\AuthController.class
+com\stockflow\security\JwtUtil.class
