@@ -1,0 +1,7 @@
+com\stockflow\StockflowApplication.class
+com\stockflow\config\SecurityConfig.class
+com\stockflow\service\ProductService.class
+com\stockflow\controller\ProductController.class
+com\stockflow\service\ProductServiceImpl.class
+com\stockflow\model\Product.class
+com\stockflow\repository\ProductRepository.class

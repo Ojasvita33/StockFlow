@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StockFlow - Inventory Management</title>
+  <link rel="stylesheet" href="modern-style.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+  <!-- Header Section -->
+  <header class="header">
+    <div class="header-content">
+      <div class="logo">
+        <i class="fas fa-boxes"></i>
+        <h1>StockFlow</h1>
+      </div>
+      <div class="user-info">
+        <span>Welcome back!</span>
+        <button class="logout-btn" onclick="openLogoutModal()">
+          <i class="fas fa-sign-out-alt"></i> Logout
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Dashboard -->
+  <div class="dashboard">
+    <!-- Stats Cards -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon">
+          <i class="fas fa-cube"></i>
+        </div>
+        <div class="stat-info">
+          <h3 id="totalProducts">0</h3>
+          <p>Total Products</p>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">
+          <i class="fas fa-rupee-sign"></i>
+        </div>
+        <div class="stat-info">
+          <h3 id="totalValue">₹0</h3>
+          <p>Total Inventory Value</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Action Section -->
+    <div class="action-section">
+      <div class="section-header">
+        <h2><i class="fas fa-plus-circle"></i> Add New Product</h2>
+      </div>
+      <form id="addProductForm" class="modern-form">
+        <div class="form-grid">
+          <div class="input-group">
+            <label for="name">Product Name</label>
+            <input type="text" id="name" placeholder="Enter product name" required>
+          </div>
+          <div class="input-group">
+            <label for="category">Category</label>
+            <select id="category" required>
+              <option value="">-- Select Category --</option>
+              <option value="Electronics">📱 Electronics</option>
+              <option value="Groceries">🥗 Groceries</option>
+              <option value="Clothing">👕 Clothing</option>
+              <option value="Stationery">✏️ Stationery</option>
+              <option value="Furniture">🪑 Furniture</option>
+            </select>
+          </div>
+          <div class="input-group">
+            <label for="quantity">Quantity</label>
+            <input type="number" id="quantity" placeholder="Enter quantity" min="1" required>
+          </div>
+          <div class="input-group">
+            <label for="price">Price per Unit</label>
+            <input type="number" id="price" placeholder="Enter price" min="1" step="0.01" required>
+          </div>
+        </div>
+        <button type="submit" class="btn-primary">
+          <i class="fas fa-plus"></i> Add Product
+        </button>
+      </form>
+    </div>
+
+    <!-- Filter Section -->
+    <div class="filter-section">
+      <div class="filter-controls">
+        <div class="input-group">
+          <label for="categoryDropdown">Filter by Category:</label>
+          <select id="categoryDropdown" onchange="filterByCategory()">
+            <option value="">-- All Categories --</option>
+          </select>
+        </div>
+        <button onclick="loadProducts()" class="btn-secondary">
+          <i class="fas fa-refresh"></i> Reset
+        </button>
+      </div>
+    </div>
+
+    <!-- Products Table Section -->
+    <div class="table-section">
+      <div class="section-header">
+        <h2><i class="fas fa-list"></i> Product Inventory</h2>
+      </div>
+      <div class="table-container">
+        <table id="productTable" class="modern-table">
+          <thead>
+            <tr>
+              <th><i class="fas fa-hashtag"></i> S.No</th>
+              <th><i class="fas fa-tag"></i> Name</th>
+              <th><i class="fas fa-folder"></i> Category</th>
+              <th><i class="fas fa-cubes"></i> Quantity</th>
+              <th><i class="fas fa-rupee-sign"></i> Price/Unit</th>
+              <th><i class="fas fa-calculator"></i> Total Price</th>
+              <th><i class="fas fa-cogs"></i> Actions</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Update Product Modal -->
+    <div id="updateModal" class="modal" style="display:none;">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3><i class="fas fa-edit"></i> Update Product</h3>
+          <span class="close" onclick="cancelUpdate()">&times;</span>
+        </div>
+        <form id="updateProductForm" class="modern-form">
+          <input type="hidden" id="updateId">
+          <div class="form-grid">
+            <div class="input-group">
+              <label for="updateName">Product Name</label>
+              <input type="text" id="updateName" placeholder="Product Name" required>
+            </div>
+            <div class="input-group">
+              <label for="updateCategory">Category</label>
+              <select id="updateCategory" required>
+                <option value="Electronics">📱 Electronics</option>
+                <option value="Groceries">🥗 Groceries</option>
+                <option value="Clothing">👕 Clothing</option>
+                <option value="Stationery">✏️ Stationery</option>
+                <option value="Furniture">🪑 Furniture</option>
+              </select>
+            </div>
+            <div class="input-group">
+              <label for="updateQuantity">Quantity</label>
+              <input type="number" id="updateQuantity" placeholder="Quantity" min="1" required>
+            </div>
+            <div class="input-group">
+              <label for="updatePrice">Price per Unit</label>
+              <input type="number" id="updatePrice" placeholder="Price per Unit" min="1" step="0.01" required>
+            </div>
+          </div>
+          <div class="modal-actions">
+            <button type="submit" class="btn-primary">
+              <i class="fas fa-save"></i> Update
+            </button>
+            <button type="button" onclick="cancelUpdate()" class="btn-secondary">
+              <i class="fas fa-times"></i> Cancel
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Delete Confirmation Modal -->
+  <div id="confirmModal" class="modal" style="display:none;">
+    <div class="modal-content">
+      <div class="modal-header" style="background: linear-gradient(135deg, #f56565 0%, #e53e3e 100%);">
+        <h3><i class="fas fa-triangle-exclamation"></i> Confirm Delete</h3>
+        <span class="close" onclick="closeDeleteModal()">&times;</span>
+      </div>
+      <div class="modern-form" style="padding: 2rem;">
+        <p style="color:#4a5568; font-size:1rem;">Are you sure you want to delete this product?</p>
+        <p style="margin-top:0.5rem; font-weight:600; color:#2d3748;">Product: <span id="confirmProductName"></span></p>
+        <p style="margin-top:0.25rem; color:#718096; font-size:0.9rem;">This action cannot be undone.</p>
+        <div class="modal-actions" style="margin-top:1.25rem;">
+          <button type="button" class="btn-danger" onclick="confirmDelete()">
+            <i class="fas fa-trash"></i> Delete
+          </button>
+          <button type="button" class="btn-secondary" onclick="closeDeleteModal()">
+            <i class="fas fa-times"></i> Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Logout Confirmation Modal -->
+  <div id="logoutModal" class="modal" style="display:none;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3><i class="fas fa-sign-out-alt"></i> Confirm Logout</h3>
+        <span class="close" onclick="closeLogoutModal()">&times;</span>
+      </div>
+      <div class="modern-form" style="padding: 2rem;">
+        <p style="color:#4a5568; font-size:1rem;">Are you sure you want to logout?</p>
+        <div class="modal-actions" style="margin-top:1.25rem;">
+          <button type="button" class="btn-danger" onclick="confirmLogout()">
+            <i class="fas fa-sign-out-alt"></i> Logout
+          </button>
+          <button type="button" class="btn-secondary" onclick="closeLogoutModal()">
+            <i class="fas fa-times"></i> Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js?v=2.3"></script>
+</body>
+</html>
