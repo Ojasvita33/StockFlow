@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>StockFlow - Login</title>
+  <link rel="stylesheet" href="/modern-style.css">
+</head>
+<body>
+  <div class="main-container">
+    <!-- Left side - Login Form -->
+    <div class="form-section">
+      <div class="form-container">
+        <h2 class="form-title">Login</h2>
+        
+        <div class="input-group">
+          <div class="input-container">
+            <span class="input-icon">📧</span>
+            <input type="text" id="username" placeholder="Enter your username" class="modern-input">
+          </div>
+        </div>
+        
+        <div class="input-group">
+          <div class="input-container">
+            <span class="input-icon">🔒</span>
+            <input type="password" id="password" placeholder="Enter your password" class="modern-input">
+          </div>
+        </div>
+        
+        <a href="#" class="forgot-password">Forgot password?</a>
+        
+        <button id="btn-login" class="login-btn">Login</button>
+        
+        <div id="result" class="result" aria-live="polite"></div>
+        
+        <p class="signup-text">Don't have an account? <a href="#" id="signup-link" class="signup-link">Signup now</a></p>
+      </div>
+    </div>
+    
+    <!-- Right side - Welcome Section -->
+    <div class="welcome-section">
+      <div class="welcome-content">
+        <h1 class="welcome-title">Welcome to StockFlow</h1>
+        <h2 class="welcome-subtitle">Inventory Management System</h2>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Registration Form (hidden by default) -->
+  <div class="main-container" id="register-container" style="display: none;">
+    <div class="form-section">
+      <div class="form-container">
+        <h2 class="form-title">Register</h2>
+        
+        <div class="input-group">
+          <div class="input-container">
+            <span class="input-icon">👤</span>
+            <input type="text" id="reg-username" placeholder="Enter your username" class="modern-input">
+          </div>
+        </div>
+        
+        <div class="input-group">
+          <div class="input-container">
+            <span class="input-icon">📧</span>
+            <input type="email" id="reg-email" placeholder="Enter your email" class="modern-input">
+          </div>
+        </div>
+        
+        <div class="input-group">
+          <div class="input-container">
+            <span class="input-icon">🔒</span>
+            <input type="password" id="reg-password" placeholder="Enter your password" class="modern-input">
+          </div>
+        </div>
+        
+        <button id="btn-register" class="login-btn">Create Account</button>
+        
+        <div id="register-result" class="result" aria-live="polite"></div>
+        
+        <p class="signup-text">Already have an account? <a href="#" id="login-link" class="signup-link">Login now</a></p>
+      </div>
+    </div>
+    
+    <div class="welcome-section">
+      <div class="welcome-content">
+        <h1 class="welcome-title">Join StockFlow</h1>
+        <h2 class="welcome-subtitle">Inventory Management System</h2>
+      </div>
+    </div>
+  </div>
+  
+  <script src="/modern-script.js"></script>
+</body>
+</html>
